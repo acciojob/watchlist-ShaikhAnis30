@@ -72,8 +72,6 @@ public class MovieRepository {
         List<String> movieList = new ArrayList<>();
         if(directorMovieMap.containsKey(name))
             movieList = directorMovieMap.get(name);
-        else
-            return null;
 
         return movieList;
     }
