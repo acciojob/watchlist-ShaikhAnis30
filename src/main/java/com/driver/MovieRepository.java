@@ -7,18 +7,18 @@ import java.util.*;
 @Repository
 public class MovieRepository {
     // map movie name by movie
-    Map<String, Movie> movieMap;
+    private Map<String, Movie> movieMap;
 
     // map director name by director
-    Map<String, Director> directorMap;
+    private Map<String, Director> directorMap;
 
 
     // map director name by all HIS movies
-    Map<String, List<String>> directorMovieMap;
+    private Map<String, List<String>> directorMovieMap;
 
     public MovieRepository() {
-        this.movieMap = new HashMap<>();
-        this.directorMap = new HashMap<>();
+        this.movieMap = new HashMap<String, Movie>();
+        this.directorMap = new HashMap<String, Director>();
         this.directorMovieMap = new HashMap<String, List<String>>();
     }
 
@@ -38,8 +38,8 @@ public class MovieRepository {
     public String addMovieDirectorPair(String mName, String dName) {
         if(movieMap.containsKey(mName) && directorMap.containsKey(dName)) {
 
-            movieMap.put(mName, movieMap.get(mName));
-            directorMap.put(dName, directorMap.get(dName));
+//            movieMap.put(mName, movieMap.get(mName));
+//            directorMap.put(dName, directorMap.get(dName));
 
             // curr director ki jo movie list hai usme ye movie bhi add kar do
 
@@ -50,6 +50,7 @@ public class MovieRepository {
 
 
             currMovies.add(mName);
+            directorMovieMap.put(dName, currMovies); // update in HashMap also
         }
 
         return "Paired new Movie to Director";
@@ -102,6 +103,9 @@ public class MovieRepository {
 
             directorMovieMap.remove(name);
         }
+
+        if(directorMap.containsKey(name))
+            directorMap.remove(name);
 
         return name + " and Movies of " + name + " Deleted Successfully";
     }
